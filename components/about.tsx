@@ -64,19 +64,10 @@ export function About() {
             }`}
           >
             <p>
-              I've been obsessed with building things since I was 10 years old. What started with LEGO Mindstorms
-              evolved into competitive robotics, where I spent the last 8 years designing, programming, and competing
-              with VEX robots. Leading my team to the{" "}
-              <span className="text-foreground font-medium">World Championship Finals</span> (top 2 out of 20,000 teams)
-              taught me that the best solutions come from relentless iteration and creative problem-solving.
-            </p>
-            <p>
-              I don't just code robots—I think about how they move, how they sense their environment, and how to make
-              them smarter. Whether it's implementing{" "}
-              <span className="text-foreground font-medium">PID control loops</span> for precision movement, training{" "}
-              <span className="text-foreground font-medium">YOLOv5 models</span> for real-time object detection, or
-              optimizing algorithms with <span className="text-foreground font-medium">TensorRT GPU acceleration</span>,
-              I'm driven by making systems work better, faster, and more intelligently.
+              I love to built things. For the past 8 years, I've been doing Competitive VEX Robotics, wherein I designed (various CAD softwares )and programmed (C++) robots, leading my team to 
+               the{" "}
+              <span className="text-foreground font-medium">VEX World Championship Finals</span> (top 2 out of 20,000 teams), as well as many other awards such as: 1x Worlds Division Champion, 1x Worlds Division Finalist, 2x New Jersey Tournament Champion, 5x Judges' Awards.
+            
             </p>
             <p>
               Beyond robotics, I love exploring the intersection of hardware and software. I've designed{" "}
@@ -84,12 +75,10 @@ export function About() {
               <span className="text-foreground font-medium">large-format 3D printers</span>, and developed{" "}
               <span className="text-foreground font-medium">full-stack web applications</span>. Currently studying{" "}
               <span className="text-foreground font-medium">Electrical Engineering at the University of Waterloo</span>,
-              I'm always looking for the next challenging problem to solve—whether it's in robotics, AI, or quantitative
-              finance.
+              I'm always looking for the next challenging problem to solve.
             </p>
             <p className="text-sm italic text-muted-foreground/80">
-              When I'm not coding or building robots, you'll find me competing in Model UN, teaching robotics to younger
-              students, or diving deep into financial markets and algorithmic trading strategies.
+              These days, I am interested in learning more about algorithmic trading and financial modeling.
             </p>
           </div>
         </div>
