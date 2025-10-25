@@ -68,7 +68,7 @@ function Loader() {
 export function RobotViewer3D() {
   const [isAnimating, setIsAnimating] = useState(true)
   const [showInfo, setShowInfo] = useState(false)
-  const [modelPath, setModelPath] = useState<string | null>(null)
+  const [modelPath, setModelPath] = useState<string>("/assets/3d/duck.glb")
 
   const handleReset = () => {
     setIsAnimating(false)
@@ -107,7 +107,7 @@ export function RobotViewer3D() {
         <PerspectiveCamera makeDefault position={[5, 5, 5]} fov={50} />
 
         <Suspense fallback={<Loader />}>
-          {modelPath && <Robot isAnimating={isAnimating} modelPath={modelPath} />}
+          <Robot isAnimating={isAnimating} modelPath={modelPath} />
           <Environment preset="studio" />
           <OrbitControls
             enablePan={true}

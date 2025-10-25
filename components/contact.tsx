@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -20,13 +19,16 @@ export function Contact() {
     setIsSubmitting(true)
     setMessage(null)
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const data = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       subject: formData.get("subject") as string,
       message: formData.get("message") as string,
     }
+
+    console.log("[v0] Submitting contact form:", data)
 
     try {
       const response = await fetch("/api/sql/contact", {
@@ -35,19 +37,24 @@ export function Contact() {
         body: JSON.stringify(data),
       })
 
+      const result = await response.json()
+      console.log("[v0] Contact form response:", result)
+
       if (response.ok) {
         setMessage({
           type: "success",
-          text: "Message sent successfully! Your message has been stored in PostgreSQL. I'll get back to you soon.",
+          text: "Message sent successfully! I'll get back to you soon.",
         })
-        e.currentTarget.reset()
+        form.reset()
       } else {
+        console.error("[v0] Contact form error:", result)
         setMessage({
           type: "error",
-          text: "Failed to send message. Please try again or email me directly at t67shah@uwaterloo.ca",
+          text: `Failed to send message: ${result.details || result.error}. Please try again or email me directly at t67shah@uwaterloo.ca`,
         })
       }
     } catch (error) {
+      console.error("[v0] Contact form exception:", error)
       setMessage({
         type: "error",
         text: "An error occurred. Please try again or email me directly at t67shah@uwaterloo.ca",
@@ -58,52 +65,58 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-8 relative border-b border-border/30">
+    <section id="contact" className="py-16 relative border-t border-border/30">
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Get In Touch</h2>
-          <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+          <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
             I'm always open to discussing new projects, robotics collaborations, or opportunities in electrical
             engineering and software development.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-2 hover:border-primary/30">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all">
-                <Mail className="h-6 w-6 text-primary" />
+          {/* Contact Info - No boxes, flowing list style */}
+          <div className="mb-12 space-y-6">
+            <div className="flex items-start gap-4 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
+                <Mail className="h-5 w-5 text-red-500" />
               </div>
-              <h3 className="font-semibold mb-2">Email</h3>
-              <a
-                href="mailto:t67shah@uwaterloo.ca"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
-              >
-                t67shah@uwaterloo.ca
-              </a>
-            </Card>
+              <div>
+                <h3 className="font-semibold mb-1">Email</h3>
+                <a
+                  href="mailto:t67shah@uwaterloo.ca"
+                  className="text-muted-foreground hover:text-red-500 transition-colors"
+                >
+                  t67shah@uwaterloo.ca
+                </a>
+              </div>
+            </div>
 
-            <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-2 hover:border-secondary/30">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-secondary/10 rounded-lg mb-4 group-hover:bg-secondary/20 group-hover:scale-110 transition-all">
-                <Phone className="h-6 w-6 text-secondary" />
+            <div className="flex items-start gap-4 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors">
+                <Phone className="h-5 w-5 text-yellow-500" />
               </div>
-              <h3 className="font-semibold mb-2">Phone</h3>
-              <a
-                href="tel:+16466300279"
-                className="text-muted-foreground hover:text-secondary transition-colors text-sm"
-              >
-                +1 (646) 630-0279
-              </a>
-            </Card>
+              <div>
+                <h3 className="font-semibold mb-1">Phone</h3>
+                <a href="tel:+16466300279" className="text-muted-foreground hover:text-yellow-500 transition-colors">
+                  +1 (646) 630-0279
+                </a>
+              </div>
+            </div>
 
-            <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-2 hover:border-accent/30">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 rounded-lg mb-4 group-hover:bg-accent/20 group-hover:scale-110 transition-all">
-                <MapPin className="h-6 w-6 text-accent" />
+            <div className="flex items-start gap-4 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                <MapPin className="h-5 w-5 text-blue-500" />
               </div>
-              <h3 className="font-semibold mb-2">Location</h3>
-              <p className="text-muted-foreground text-sm">Waterloo, ON / Summit, NJ</p>
-            </Card>
+              <div>
+                <h3 className="font-semibold mb-1">Location</h3>
+                <p className="text-muted-foreground">Waterloo, ON / Summit, NJ</p>
+              </div>
+            </div>
           </div>
 
-          <Card className="p-8 border-2 hover:border-primary/20 transition-colors">
+          {/* Contact Form - Simplified without card wrapper */}
+          <div className="border-t border-border/30 pt-12">
+            <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
             <form id="contact-form" onSubmit={handleSubmit} className="space-y-5">
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2">
@@ -184,7 +197,7 @@ export function Contact() {
                 )}
               </Button>
             </form>
-          </Card>
+          </div>
         </div>
       </div>
 

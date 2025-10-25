@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 
 export function InteractiveGridBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const mousePosRef = useRef({ x: -1000, y: -1000 })
+  const mousePosRef = useRef<{ x: number; y: number } | null>(null)
   const animationFrameRef = useRef<number>()
 
   useEffect(() => {
@@ -45,17 +45,19 @@ export function InteractiveGridBackground() {
       for (let x = 0; x <= canvas.width; x += gridSize) {
         ctx.beginPath()
         for (let y = 0; y <= canvas.height; y += 5) {
-          const dx = mousePos.x - x
-          const dy = mousePos.y - y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
           let offsetX = x
           let offsetY = y
 
-          if (distance < warpRadius) {
-            const warpFactor = (1 - distance / warpRadius) * warpStrength
-            offsetX += (dx / distance) * warpFactor
-            offsetY += (dy / distance) * warpFactor * 0.5
+          if (mousePos) {
+            const dx = mousePos.x - x
+            const dy = mousePos.y - y
+            const distance = Math.sqrt(dx * dx + dy * dy)
+
+            if (distance < warpRadius) {
+              const warpFactor = (1 - distance / warpRadius) * warpStrength
+              offsetX += (dx / distance) * warpFactor
+              offsetY += (dy / distance) * warpFactor * 0.5
+            }
           }
 
           if (y === 0) {
@@ -70,17 +72,19 @@ export function InteractiveGridBackground() {
       for (let y = 0; y <= canvas.height; y += gridSize) {
         ctx.beginPath()
         for (let x = 0; x <= canvas.width; x += 5) {
-          const dx = mousePos.x - x
-          const dy = mousePos.y - y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
           let offsetX = x
           let offsetY = y
 
-          if (distance < warpRadius) {
-            const warpFactor = (1 - distance / warpRadius) * warpStrength
-            offsetX += (dx / distance) * warpFactor * 0.5
-            offsetY += (dy / distance) * warpFactor
+          if (mousePos) {
+            const dx = mousePos.x - x
+            const dy = mousePos.y - y
+            const distance = Math.sqrt(dx * dx + dy * dy)
+
+            if (distance < warpRadius) {
+              const warpFactor = (1 - distance / warpRadius) * warpStrength
+              offsetX += (dx / distance) * warpFactor * 0.5
+              offsetY += (dy / distance) * warpFactor
+            }
           }
 
           if (x === 0) {

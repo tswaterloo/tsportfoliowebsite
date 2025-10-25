@@ -1,7 +1,18 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Linkedin, Mail, ExternalLink, Download, Code2, Cpu, Wrench, Brain } from "lucide-react"
+import {
+  Linkedin,
+  Mail,
+  ExternalLink,
+  Download,
+  Code2,
+  Cpu,
+  Wrench,
+  Brain,
+  Zap,
+  Microscope as Microchip,
+} from "lucide-react"
 import { useEffect, useState } from "react"
 import { TypewriterText } from "@/components/typewriter-text"
 
@@ -13,12 +24,12 @@ export function Hero() {
   }, [])
 
   const skillIcons = [
-    { icon: Code2, label: "C++", color: "text-blue-400" },
-    { icon: Code2, label: "Python", color: "text-yellow-400" },
-    { icon: Code2, label: "React", color: "text-cyan-400" },
-    { icon: Cpu, label: "Robotics", color: "text-purple-400" },
-    { icon: Brain, label: "AI/ML", color: "text-pink-400" },
+    { icon: Code2, label: "Software", color: "text-cyan-400" },
+    { icon: Microchip, label: "Embedded", color: "text-purple-400" },
+    { icon: Zap, label: "Hardware", color: "text-yellow-400" },
     { icon: Wrench, label: "CAD", color: "text-green-400" },
+    { icon: Cpu, label: "Robotics", color: "text-blue-400" },
+    { icon: Brain, label: "AI/ML", color: "text-pink-400" },
   ]
 
   return (
@@ -59,22 +70,22 @@ export function Hero() {
             Electrical Engineering @ University of Waterloo
           </p>
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Electrical engineering student looking to solve difficult problems and make an impact. Hands-on experience in software development, robotics, embedded systems, hardware | Prev: VEX Robotics World Finalist, ECE Research @ Hofstra University, special AI showcase presenter @ Robotics World Championship in Dallas.
+            Electrical engineering student looking to solve difficult problems and make an impact. Hands-on experience
+            in software development, robotics, embedded systems, hardware | Prev: VEX Robotics World Finalist, ECE
+            Research @ Hofstra University, special AI showcase presenter @ Robotics World Championship in Dallas.
           </p>
 
-          <div className="flex items-center justify-center gap-6 mb-10 flex-wrap">
+          <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
             {skillIcons.map((skill, index) => {
               const Icon = skill.icon
               return (
                 <div
                   key={skill.label}
-                  className="flex flex-col items-center gap-2 group cursor-default"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/30 backdrop-blur-sm border border-border/50 hover:border-border hover:bg-background/50 transition-all hover:scale-105 cursor-default group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="p-3 bg-background/50 backdrop-blur-sm border-2 border-border rounded-lg group-hover:border-primary/50 transition-all group-hover:scale-110">
-                    <Icon className={`h-6 w-6 ${skill.color}`} />
-                  </div>
-                  <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+                  <Icon className={`h-4 w-4 ${skill.color}`} />
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                     {skill.label}
                   </span>
                 </div>
