@@ -54,12 +54,12 @@ export function Hero() {
           </div>
 
           <p className="text-xl md:text-2xl text-muted-foreground mb-6 text-balance font-medium">
-            VEX Robotics World Championship Finalist | Electrical Engineering @ University of Waterloo
+            Electrical Engineering @ University of Waterloo
           </p>
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Passionate about robotics, AI, and full-stack development. Experienced in C++, Python, React, and machine
-            learning with a track record of leading award-winning robotics teams and building innovative engineering
-            projects.
+            Electrical engineering student with hands-on experience in embedded systems, full-stack development, and
+            machine learning. Skilled in C++, Python, JavaScript, and hardware design with a proven track record in
+            research, firmware development, and building innovative solutions across robotics, AI, and web technologies.
           </p>
 
           <div className="flex items-center justify-center gap-6 mb-10 flex-wrap">
