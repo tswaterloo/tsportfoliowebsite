@@ -12,8 +12,12 @@ import type * as THREE from "three"
 function Robot({ isAnimating, modelPath }: { isAnimating: boolean; modelPath: string }) {
   const meshRef = useRef<THREE.Mesh>(null)
   const [hovered, setHovered] = useState(false)
+  const gltf = useGLTF(modelPath)
+  let scene = null
 
-  const { scene } = useGLTF(modelPath)
+  if (gltf) {
+    scene = gltf.scene
+  }
 
   useFrame((state, delta) => {
     if (meshRef.current && isAnimating) {
@@ -23,14 +27,16 @@ function Robot({ isAnimating, modelPath }: { isAnimating: boolean; modelPath: st
 
   return (
     <group>
-      <primitive
-        ref={meshRef}
-        object={scene.clone()}
-        scale={2}
-        position={[0, 0, 0]}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      />
+      {scene && (
+        <primitive
+          ref={meshRef}
+          object={scene.clone()}
+          scale={2}
+          position={[0, 0, 0]}
+          onPointerOver={() => setHovered(true)}
+          onPointerOut={() => setHovered(false)}
+        />
+      )}
 
       {hovered && (
         <Html position={[0, 3, 0]} center>
@@ -62,7 +68,7 @@ function Loader() {
 export function RobotViewer3D() {
   const [isAnimating, setIsAnimating] = useState(true)
   const [showInfo, setShowInfo] = useState(false)
-  const [modelPath, setModelPath] = useState("/assets/3d/duck.glb")
+  const [modelPath, setModelPath] = useState<string | null>(null)
 
   const handleReset = () => {
     setIsAnimating(false)
@@ -101,7 +107,7 @@ export function RobotViewer3D() {
         <PerspectiveCamera makeDefault position={[5, 5, 5]} fov={50} />
 
         <Suspense fallback={<Loader />}>
-          <Robot isAnimating={isAnimating} modelPath={modelPath} />
+          {modelPath && <Robot isAnimating={isAnimating} modelPath={modelPath} />}
           <Environment preset="studio" />
           <OrbitControls
             enablePan={true}
