@@ -10,12 +10,12 @@ import { RobotShowcase } from "@/components/robot-showcase"
 import { Contact } from "@/components/contact"
 import { Navigation } from "@/components/navigation"
 import { ScrollProgress } from "@/components/scroll-progress"
-import { ParticlesBackground } from "@/components/particles-background"
+import { InteractiveGridBackground } from "@/components/interactive-grid-background"
 
 export default function Home() {
   return (
     <main className="min-h-screen relative">
-      <ParticlesBackground />
+      <InteractiveGridBackground />
       <ScrollProgress />
       <Navigation />
       <Hero />

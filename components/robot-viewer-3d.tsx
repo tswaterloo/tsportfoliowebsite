@@ -1,20 +1,19 @@
 "use client"
 
+import type React from "react"
+
 import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls, Environment, Grid, PerspectiveCamera, Html, useGLTF } from "@react-three/drei"
+import { OrbitControls, Environment, PerspectiveCamera, Html, useGLTF } from "@react-three/drei"
 import { Suspense, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Play, Pause, RotateCcw, Maximize2, Info } from "lucide-react"
+import { Play, Pause, RotateCcw, Info, X, Upload } from "lucide-react"
 import type * as THREE from "three"
 
-// Robot component with animation
-function Robot({ isAnimating }: { isAnimating: boolean }) {
+function Robot({ isAnimating, modelPath }: { isAnimating: boolean; modelPath: string }) {
   const meshRef = useRef<THREE.Mesh>(null)
   const [hovered, setHovered] = useState(false)
 
-  // Use the built-in duck model as placeholder
-  const { scene } = useGLTF("/assets/3d/duck.glb")
+  const { scene } = useGLTF(modelPath)
 
   useFrame((state, delta) => {
     if (meshRef.current && isAnimating) {
@@ -24,7 +23,6 @@ function Robot({ isAnimating }: { isAnimating: boolean }) {
 
   return (
     <group>
-      {/* Main robot body - using duck as placeholder */}
       <primitive
         ref={meshRef}
         object={scene.clone()}
@@ -34,17 +32,15 @@ function Robot({ isAnimating }: { isAnimating: boolean }) {
         onPointerOut={() => setHovered(false)}
       />
 
-      {/* Info label */}
       {hovered && (
         <Html position={[0, 3, 0]} center>
-          <div className="bg-background/95 backdrop-blur-sm border-2 border-primary rounded-lg px-4 py-2 shadow-xl">
-            <p className="text-sm font-semibold text-foreground whitespace-nowrap">VEX Robotics Competition Robot</p>
-            <p className="text-xs text-muted-foreground">Click and drag to rotate</p>
+          <div className="bg-background/95 backdrop-blur-sm border border-primary/30 rounded-lg px-3 py-2 shadow-xl pointer-events-none">
+            <p className="text-xs font-medium text-foreground whitespace-nowrap">VEX Robotics Robot</p>
+            <p className="text-[10px] text-muted-foreground">Drag to rotate</p>
           </div>
         </Html>
       )}
 
-      {/* Lighting */}
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
       <pointLight position={[-10, -10, -10]} intensity={0.5} />
@@ -52,13 +48,12 @@ function Robot({ isAnimating }: { isAnimating: boolean }) {
   )
 }
 
-// Loading fallback
 function Loader() {
   return (
     <Html center>
       <div className="flex flex-col items-center gap-2">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-        <p className="text-sm text-muted-foreground">Loading 3D Model...</p>
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="text-xs text-muted-foreground">Loading 3D Model...</p>
       </div>
     </Html>
   )
@@ -66,41 +61,48 @@ function Loader() {
 
 export function RobotViewer3D() {
   const [isAnimating, setIsAnimating] = useState(true)
-  const [showInfo, setShowInfo] = useState(true)
+  const [showInfo, setShowInfo] = useState(false)
+  const [modelPath, setModelPath] = useState("/assets/3d/duck.glb")
 
   const handleReset = () => {
     setIsAnimating(false)
     setTimeout(() => setIsAnimating(true), 100)
   }
 
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const fileName = file.name.toLowerCase()
+
+      if (fileName.endsWith(".step") || fileName.endsWith(".stp")) {
+        alert(
+          "STEP files need to be converted to .glb or .gltf format first.\n\n" +
+            "You can convert them using:\n" +
+            "• FreeCAD (free)\n" +
+            "• Blender (free)\n" +
+            "• Online converters like AnyConv\n\n" +
+            "Export as .glb for best results!",
+        )
+        return
+      }
+
+      if (fileName.endsWith(".glb") || fileName.endsWith(".gltf")) {
+        const url = URL.createObjectURL(file)
+        setModelPath(url)
+      } else {
+        alert("Please upload a .glb, .gltf file (or convert your STEP file first)")
+      }
+    }
+  }
+
   return (
-    <div className="w-full h-full min-h-[600px] relative">
-      {/* 3D Canvas */}
-      <Canvas shadows className="bg-gradient-to-b from-background to-muted/30">
+    <div className="w-full h-full min-h-[400px] relative rounded-lg overflow-hidden border border-border/50 bg-gradient-to-br from-background via-muted/10 to-background">
+      <Canvas shadows className="bg-transparent">
         <PerspectiveCamera makeDefault position={[5, 5, 5]} fov={50} />
 
         <Suspense fallback={<Loader />}>
-          <Robot isAnimating={isAnimating} />
-
-          {/* Environment */}
+          <Robot isAnimating={isAnimating} modelPath={modelPath} />
           <Environment preset="studio" />
-
-          {/* Grid floor */}
-          <Grid
-            args={[20, 20]}
-            cellSize={0.5}
-            cellThickness={0.5}
-            cellColor="#6b7280"
-            sectionSize={2}
-            sectionThickness={1}
-            sectionColor="#3b82f6"
-            fadeDistance={25}
-            fadeStrength={1}
-            followCamera={false}
-            infiniteGrid
-          />
-
-          {/* Controls */}
           <OrbitControls
             enablePan={true}
             enableZoom={true}
@@ -113,88 +115,82 @@ export function RobotViewer3D() {
         </Suspense>
       </Canvas>
 
-      {/* Control Panel */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
-        <Card className="p-4 bg-background/95 backdrop-blur-sm border-2 shadow-xl">
-          <div className="flex items-center gap-3">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+        <div className="flex items-center gap-2 bg-background/95 backdrop-blur-sm border border-border/50 rounded-lg p-2 shadow-lg">
+          <Button
+            size="sm"
+            variant={isAnimating ? "default" : "outline"}
+            onClick={() => setIsAnimating(!isAnimating)}
+            className="h-8 px-3 text-xs"
+            title={isAnimating ? "Pause" : "Play"}
+          >
+            {isAnimating ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
+          </Button>
+
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleReset}
+            className="h-8 px-3 text-xs bg-transparent"
+            title="Reset"
+          >
+            <RotateCcw className="h-3 w-3" />
+          </Button>
+
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setShowInfo(!showInfo)}
+            className="h-8 px-3 text-xs"
+            title="Info"
+          >
+            <Info className="h-3 w-3" />
+          </Button>
+
+          <label className="cursor-pointer">
             <Button
               size="sm"
-              variant={isAnimating ? "default" : "outline"}
-              onClick={() => setIsAnimating(!isAnimating)}
-              className="gap-2"
+              variant="outline"
+              className="h-8 px-3 text-xs bg-transparent"
+              title="Upload CAD File"
+              asChild
             >
-              {isAnimating ? (
-                <>
-                  <Pause className="h-4 w-4" />
-                  Pause
-                </>
-              ) : (
-                <>
-                  <Play className="h-4 w-4" />
-                  Play
-                </>
-              )}
+              <span>
+                <Upload className="h-3 w-3" />
+              </span>
             </Button>
-
-            <Button size="sm" variant="outline" onClick={handleReset} className="gap-2 bg-transparent">
-              <RotateCcw className="h-4 w-4" />
-              Reset
-            </Button>
-
-            <Button size="sm" variant="outline" onClick={() => setShowInfo(!showInfo)} className="gap-2">
-              <Info className="h-4 w-4" />
-              Info
-            </Button>
-
-            <div className="h-6 w-px bg-border" />
-
-            <Button size="sm" variant="ghost" className="gap-2">
-              <Maximize2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </Card>
+            <input type="file" accept=".glb,.gltf,.step,.stp" onChange={handleFileUpload} className="hidden" />
+          </label>
+        </div>
       </div>
 
-      {/* Info Panel */}
       {showInfo && (
-        <div className="absolute top-6 right-6 z-10 max-w-xs">
-          <Card className="p-4 bg-background/95 backdrop-blur-sm border-2 shadow-xl">
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
-              <Info className="h-4 w-4 text-primary" />
-              3D Robot Viewer
-            </h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Drag to rotate the view</li>
-              <li>• Scroll to zoom in/out</li>
-              <li>• Right-click drag to pan</li>
-              <li>• Hover over robot for details</li>
-            </ul>
-            <div className="mt-3 pt-3 border-t border-border">
-              <p className="text-xs text-muted-foreground">Built with React Three Fiber</p>
+        <div className="absolute top-4 right-4 z-10 max-w-[220px]">
+          <div className="bg-background/95 backdrop-blur-sm border border-border/50 rounded-lg p-3 shadow-lg">
+            <div className="flex items-start justify-between mb-2">
+              <h3 className="text-xs font-semibold">Controls</h3>
+              <button
+                onClick={() => setShowInfo(false)}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-3 w-3" />
+              </button>
             </div>
-          </Card>
+            <ul className="text-[10px] text-muted-foreground space-y-1">
+              <li>• Drag to rotate</li>
+              <li>• Scroll to zoom</li>
+              <li>• Right-click to pan</li>
+              <li>• Click upload to add your CAD</li>
+            </ul>
+            <div className="mt-2 pt-2 border-t border-border/50">
+              <p className="text-[9px] text-muted-foreground">
+                Upload .glb or .gltf files. STEP files must be converted first using FreeCAD or Blender.
+              </p>
+            </div>
+          </div>
         </div>
       )}
-
-      {/* Stats Overlay */}
-      <div className="absolute top-6 left-6 z-10">
-        <Card className="p-3 bg-background/95 backdrop-blur-sm border-2 shadow-xl">
-          <div className="space-y-1 text-sm">
-            <div className="flex justify-between gap-4">
-              <span className="text-muted-foreground">Status:</span>
-              <span className="font-semibold text-primary">{isAnimating ? "Animating" : "Paused"}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-muted-foreground">Renderer:</span>
-              <span className="font-semibold">WebGL</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-muted-foreground">Framework:</span>
-              <span className="font-semibold">Three.js</span>
-            </div>
-          </div>
-        </Card>
-      </div>
     </div>
   )
 }

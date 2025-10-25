@@ -69,7 +69,17 @@ export interface AnalyticsEvent {
 // CRUD operations for projects
 export const projectQueries = {
   getAll: async (): Promise<Project[]> => {
-    return await sql`SELECT * FROM projects ORDER BY featured DESC, created_at DESC`
+    const results = await sql`
+      SELECT DISTINCT ON (title) *
+      FROM projects 
+      ORDER BY title, featured DESC, created_at DESC
+    `
+    console.log("[v0] Projects fetched from database:", results.length)
+    console.log(
+      "[v0] Project titles:",
+      results.map((p: Project) => p.title),
+    )
+    return results
   },
 
   getById: async (id: number): Promise<Project | null> => {

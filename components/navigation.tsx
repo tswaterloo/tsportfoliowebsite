@@ -2,22 +2,17 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Moon, Sun, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 export function Navigation() {
-  const [isDark, setIsDark] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark")
-    setIsDark(isDarkMode)
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      // Update active section based on scroll position
       const sections = ["home", "about", "experience", "projects", "skills", "contact"]
       for (const section of sections) {
         const element = document.getElementById(section)
@@ -34,11 +29,6 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark")
-    setIsDark(!isDark)
-  }
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -60,9 +50,9 @@ export function Navigation() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => scrollToSection("home")}
-              className="text-lg font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent hover:scale-105 transition-transform"
+              className="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent hover:scale-105 transition-transform font-mono"
             >
-              {"<Portfolio />"}
+              &lt;Portfolio /&gt;
             </button>
 
             <div className="hidden md:flex items-center gap-8">
@@ -83,16 +73,6 @@ export function Navigation() {
             </div>
 
             <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                aria-label="Toggle theme"
-                className="hover:bg-primary/10 hover:text-primary transition-colors"
-              >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
-
               <Button
                 variant="ghost"
                 size="icon"

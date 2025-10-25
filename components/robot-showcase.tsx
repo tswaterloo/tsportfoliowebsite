@@ -3,15 +3,31 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Cable as Cube, Eye, Github, ExternalLink } from "lucide-react"
+import { Cable as Cube, Eye, ExternalLink } from "lucide-react"
 import Link from "next/link"
+import { Suspense } from "react"
+import dynamic from "next/dynamic"
+
+const RobotViewer3D = dynamic(
+  () => import("@/components/robot-viewer-3d").then((mod) => ({ default: mod.RobotViewer3D })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-muted/30">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 mx-auto border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm text-muted-foreground">Loading 3D Viewer...</p>
+        </div>
+      </div>
+    ),
+  },
+)
 
 export function RobotShowcase() {
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/30">
+    <section className="py-16 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-4">
               <Cube className="h-3 w-3 mr-1" />
@@ -24,28 +40,31 @@ export function RobotShowcase() {
             </p>
           </div>
 
-          {/* Preview Card */}
           <Card className="overflow-hidden border-2 hover:border-primary/30 transition-all group">
             <div className="relative aspect-video bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
-              {/* Placeholder preview */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <div className="w-24 h-24 mx-auto bg-primary/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Cube className="h-12 w-12 text-primary animate-pulse" />
+              <div className="absolute inset-0">
+                <Suspense
+                  fallback={
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-center space-y-4">
+                        <div className="w-12 h-12 mx-auto border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                        <p className="text-sm text-muted-foreground">Loading 3D Model...</p>
+                      </div>
+                    </div>
+                  }
+                >
+                  <div className="w-full h-full pointer-events-none">
+                    <RobotViewer3D />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">3D Robot Model</h3>
-                    <p className="text-sm text-muted-foreground">Click below to launch interactive viewer</p>
-                  </div>
-                </div>
+                </Suspense>
               </div>
 
-              {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              {/* Overlay with link to full page */}
+              <div className="absolute inset-0 bg-background/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <Link href="/robot-3d">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2 pointer-events-auto">
                     <Eye className="h-5 w-5" />
-                    View in 3D
+                    View Full 3D Experience
                   </Button>
                 </Link>
               </div>
@@ -95,12 +114,6 @@ export function RobotShowcase() {
                     Launch 3D Viewer
                   </Button>
                 </Link>
-                <Button variant="outline" className="gap-2 bg-transparent" asChild>
-                  <a href="https://bit.ly/46tg7gQ" target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4" />
-                    View Code
-                  </a>
-                </Button>
                 <Button variant="outline" className="gap-2 bg-transparent" asChild>
                   <a href="http://bit.ly/46xUgox" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4" />

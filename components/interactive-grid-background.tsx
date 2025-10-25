@@ -1,0 +1,124 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+
+export function InteractiveGridBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const mousePosRef = useRef({ x: -1000, y: -1000 })
+  const animationFrameRef = useRef<number>()
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const updateCanvasSize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+
+    updateCanvasSize()
+
+    const gridSize = 40
+    const warpRadius = 120
+    const warpStrength = 12
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePosRef.current = {
+        x: e.clientX,
+        y: e.clientY,
+      }
+    }
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      ctx.strokeStyle = "rgba(130, 130, 130, 0.38)"
+      ctx.lineWidth = 1.8
+
+      const mousePos = mousePosRef.current
+
+      // Vertical lines with subtle squiggle
+      for (let x = 0; x <= canvas.width; x += gridSize) {
+        ctx.beginPath()
+        for (let y = 0; y <= canvas.height; y += 5) {
+          const dx = mousePos.x - x
+          const dy = mousePos.y - y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          let offsetX = x
+          let offsetY = y
+
+          // Subtle wave effect
+          offsetX += Math.sin(y * 0.01) * 1.5
+
+          if (distance < warpRadius) {
+            const warpFactor = (1 - distance / warpRadius) * warpStrength
+            offsetX += (dx / distance) * warpFactor
+            offsetY += (dy / distance) * warpFactor * 0.5
+          }
+
+          if (y === 0) {
+            ctx.moveTo(offsetX, offsetY)
+          } else {
+            ctx.lineTo(offsetX, offsetY)
+          }
+        }
+        ctx.stroke()
+      }
+
+      // Horizontal lines with subtle squiggle
+      for (let y = 0; y <= canvas.height; y += gridSize) {
+        ctx.beginPath()
+        for (let x = 0; x <= canvas.width; x += 5) {
+          const dx = mousePos.x - x
+          const dy = mousePos.y - y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          let offsetX = x
+          let offsetY = y
+
+          // Subtle wave effect
+          offsetY += Math.sin(x * 0.01) * 1.5
+
+          if (distance < warpRadius) {
+            const warpFactor = (1 - distance / warpRadius) * warpStrength
+            offsetX += (dx / distance) * warpFactor * 0.5
+            offsetY += (dy / distance) * warpFactor
+          }
+
+          if (x === 0) {
+            ctx.moveTo(offsetX, offsetY)
+          } else {
+            ctx.lineTo(offsetX, offsetY)
+          }
+        }
+        ctx.stroke()
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+
+    animate()
+
+    const handleResize = () => {
+      updateCanvasSize()
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+      window.removeEventListener("resize", handleResize)
+      window.removeEventListener("mousemove", handleMouseMove)
+    }
+  }, [])
+
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none opacity-50" style={{ zIndex: 0 }} />
+}

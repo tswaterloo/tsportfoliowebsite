@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Loader2, Mail, MapPin, Phone, Send } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Loader2, Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle } from "lucide-react"
 
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -43,13 +44,13 @@ export function Contact() {
       } else {
         setMessage({
           type: "error",
-          text: "Failed to send message. Please try again or email me directly.",
+          text: "Failed to send message. Please try again or email me directly at t67shah@uwaterloo.ca",
         })
       }
     } catch (error) {
       setMessage({
         type: "error",
-        text: "An error occurred. Please try again or email me directly.",
+        text: "An error occurred. Please try again or email me directly at t67shah@uwaterloo.ca",
       })
     } finally {
       setIsSubmitting(false)
@@ -57,16 +58,16 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-muted/30 relative">
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="contact" className="py-8 bg-muted/30 relative">
+      <div className="container mx-auto px-6 relative z-10 bg-background shadow-md">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Get In Touch</h2>
           <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             I'm always open to discussing new projects, robotics collaborations, or opportunities in electrical
-            engineering and software development. Feel free to reach out!
+            engineering and software development.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
             <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-2 hover:border-primary/30">
               <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <Mail className="h-6 w-6 text-primary" />
@@ -74,7 +75,7 @@ export function Contact() {
               <h3 className="font-semibold mb-2">Email</h3>
               <a
                 href="mailto:t67shah@uwaterloo.ca"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors text-sm"
               >
                 t67shah@uwaterloo.ca
               </a>
@@ -85,7 +86,10 @@ export function Contact() {
                 <Phone className="h-6 w-6 text-secondary" />
               </div>
               <h3 className="font-semibold mb-2">Phone</h3>
-              <a href="tel:+16466300279" className="text-muted-foreground hover:text-secondary transition-colors">
+              <a
+                href="tel:+16466300279"
+                className="text-muted-foreground hover:text-secondary transition-colors text-sm"
+              >
                 +1 (646) 630-0279
               </a>
             </Card>
@@ -95,15 +99,15 @@ export function Contact() {
                 <MapPin className="h-6 w-6 text-accent" />
               </div>
               <h3 className="font-semibold mb-2">Location</h3>
-              <p className="text-muted-foreground">Waterloo, ON / Summit, NJ</p>
+              <p className="text-muted-foreground text-sm">Waterloo, ON / Summit, NJ</p>
             </Card>
           </div>
 
           <Card className="p-8 border-2 hover:border-primary/20 transition-colors">
-            <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">Name *</Label>
                   <Input
                     id="name"
                     name="name"
@@ -114,7 +118,7 @@ export function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Email *</Label>
                   <Input
                     id="email"
                     name="email"
@@ -128,7 +132,7 @@ export function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
+                <Label htmlFor="subject">Subject *</Label>
                 <Input
                   id="subject"
                   name="subject"
@@ -140,7 +144,7 @@ export function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">Message *</Label>
                 <Textarea
                   id="message"
                   name="message"
@@ -153,15 +157,17 @@ export function Contact() {
               </div>
 
               {message && (
-                <div
-                  className={`p-4 rounded-lg animate-in fade-in slide-in-from-top-2 duration-300 ${
-                    message.type === "success"
-                      ? "bg-green-50 dark:bg-green-950 text-green-200 border-2 border-green-800"
-                      : "bg-red-50 dark:bg-red-950 text-red-200 border-2 border-red-800"
-                  }`}
+                <Alert
+                  variant={message.type === "success" ? "default" : "destructive"}
+                  className="animate-in fade-in slide-in-from-top-2 duration-300"
                 >
-                  {message.text}
-                </div>
+                  {message.type === "success" ? (
+                    <CheckCircle2 className="h-4 w-4" />
+                  ) : (
+                    <AlertCircle className="h-4 w-4" />
+                  )}
+                  <AlertDescription>{message.text}</AlertDescription>
+                </Alert>
               )}
 
               <Button type="submit" size="lg" disabled={isSubmitting} className="w-full md:w-auto group">
@@ -182,9 +188,9 @@ export function Contact() {
         </div>
       </div>
 
-      <footer className="mt-24 pt-8 border-t border-border">
+      <footer className="mt-16 pt-8 border-t border-border">
         <div className="container mx-auto px-6">
-          <p className="text-center text-muted-foreground">
+          <p className="text-center text-muted-foreground text-sm">
             © {new Date().getFullYear()} Tanush Shah. Built with Next.js, React, TypeScript, and Tailwind CSS.
           </p>
         </div>

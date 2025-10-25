@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Github, Linkedin, Mail, ExternalLink, Download } from "lucide-react"
+import { Linkedin, Mail, ExternalLink, Download, Code2, Cpu, Wrench, Brain } from "lucide-react"
 import { useEffect, useState } from "react"
 import { TypewriterText } from "@/components/typewriter-text"
 
@@ -12,36 +12,75 @@ export function Hero() {
     setIsVisible(true)
   }, [])
 
+  const skillIcons = [
+    { icon: Code2, label: "C++", color: "text-blue-400" },
+    { icon: Code2, label: "Python", color: "text-yellow-400" },
+    { icon: Code2, label: "React", color: "text-cyan-400" },
+    { icon: Cpu, label: "Robotics", color: "text-purple-400" },
+    { icon: Brain, label: "AI/ML", color: "text-pink-400" },
+    { icon: Wrench, label: "CAD", color: "text-green-400" },
+  ]
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-16 relative">
+    <section id="home" className="min-h-screen flex items-center justify-center pt-32 relative">
       <div className="container mx-auto px-6 relative z-10">
         <div
           className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="mb-6">
-            <span className="text-lg md:text-xl font-semibold text-primary mb-4 block">Hi, I'm Tanush Shah</span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-gradient">
-              <TypewriterText
-                texts={[
-                  "Electrical Engineering Student",
-                  "Robotics Engineer",
-                  "Full Stack Developer",
-                  "AI/ML Enthusiast",
-                ]}
-              />
+          <div className="mb-8 space-y-4">
+            <span className="text-3xl md:text-4xl lg:text-5xl font-light block tracking-wide bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-gradient bg-[length:200%_200%]">
+              Hi, I'm
+            </span>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-balance bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_200%] leading-[1.1]">
+              Tanush Shah
             </h1>
           </div>
 
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance">
+          <div className="mb-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 leading-tight">
+              <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_200%]">
+                <TypewriterText
+                  texts={[
+                    "Electrical Engineering Student",
+                    "Robotics Engineer",
+                    "Full Stack Developer",
+                    "AI/ML Enthusiast",
+                  ]}
+                />
+              </span>
+            </h2>
+          </div>
+
+          <p className="text-xl md:text-2xl text-muted-foreground mb-6 text-balance font-medium">
             VEX Robotics World Championship Finalist | Electrical Engineering @ University of Waterloo
           </p>
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
             Passionate about robotics, AI, and full-stack development. Experienced in C++, Python, React, and machine
             learning with a track record of leading award-winning robotics teams and building innovative engineering
             projects.
           </p>
+
+          <div className="flex items-center justify-center gap-6 mb-10 flex-wrap">
+            {skillIcons.map((skill, index) => {
+              const Icon = skill.icon
+              return (
+                <div
+                  key={skill.label}
+                  className="flex flex-col items-center gap-2 group cursor-default"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="p-3 bg-background/50 backdrop-blur-sm border-2 border-border rounded-lg group-hover:border-primary/50 transition-all group-hover:scale-110">
+                    <Icon className={`h-6 w-6 ${skill.color}`} />
+                  </div>
+                  <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+                    {skill.label}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
             <Button size="lg" className="group" asChild>
@@ -62,15 +101,6 @@ export function Hero() {
           </div>
 
           <div className="flex items-center justify-center gap-6">
-            <a
-              href="https://github.com/tanushshah"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
-              aria-label="GitHub"
-            >
-              <Github className="h-6 w-6" />
-            </a>
             <a
               href="https://linkedin.com/in/tanush-shah17"
               target="_blank"

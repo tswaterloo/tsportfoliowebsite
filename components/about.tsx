@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Card } from "@/components/ui/card"
 import { Award, Trophy, GraduationCap, Users } from "lucide-react"
 
 const highlights = [
@@ -49,7 +48,7 @@ export function About() {
   }, [])
 
   return (
-    <section id="about" className="py-24 bg-muted/30 relative" ref={sectionRef}>
+    <section id="about" className="py-8 relative border-b border-border/30" ref={sectionRef}>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           <h2
@@ -65,49 +64,33 @@ export function About() {
             }`}
           >
             <p>
-              I'm an <span className="text-foreground font-medium">Electrical Engineering student</span> at the
-              University of Waterloo with a passion for robotics, artificial intelligence, and full-stack development.
-              My journey in engineering began with VEX Robotics, where I've spent over 8 years designing, building, and
-              programming competitive robots.
+              I've been obsessed with building things since I was 10 years old. What started with LEGO Mindstorms
+              evolved into competitive robotics, where I spent the last 8 years designing, programming, and competing
+              with VEX robots. Leading my team to the{" "}
+              <span className="text-foreground font-medium">World Championship Finals</span> (top 2 out of 20,000 teams)
+              taught me that the best solutions come from relentless iteration and creative problem-solving.
             </p>
             <p>
-              As <span className="text-foreground font-medium">Team Captain</span>, I led my 6-person team to a{" "}
-              <span className="text-foreground font-medium">
-                Finalist position at the VEX Robotics World Championship
-              </span>
-              , ranking in the top 2 of 20,000 teams worldwide. I worked 20+ hours per week on code, build, strategy,
-              and detailed engineering documentation, resulting in 5 state-level award wins including 2x Excellence
-              Awards, 2x Innovate Awards, and 1x Amaze Award.
+              I don't just code robots—I think about how they move, how they sense their environment, and how to make
+              them smarter. Whether it's implementing{" "}
+              <span className="text-foreground font-medium">PID control loops</span> for precision movement, training{" "}
+              <span className="text-foreground font-medium">YOLOv5 models</span> for real-time object detection, or
+              optimizing algorithms with <span className="text-foreground font-medium">TensorRT GPU acceleration</span>,
+              I'm driven by making systems work better, faster, and more intelligently.
             </p>
             <p>
-              Beyond robotics, I've conducted{" "}
-              <span className="text-foreground font-medium">research at Hofstra University</span>, where I designed and
-              built a modular large-format gantry 3D printer and a mobile 4WD 3D printing robot. I've also explored{" "}
-              <span className="text-foreground font-medium">machine learning and computer vision</span>, developing
-              YOLOv5-based object detection systems and NLP models for financial sentiment analysis with 85%
-              classification accuracy.
+              Beyond robotics, I love exploring the intersection of hardware and software. I've designed{" "}
+              <span className="text-foreground font-medium">custom PCBs</span>, built{" "}
+              <span className="text-foreground font-medium">large-format 3D printers</span>, and developed{" "}
+              <span className="text-foreground font-medium">full-stack web applications</span>. Currently studying{" "}
+              <span className="text-foreground font-medium">Electrical Engineering at the University of Waterloo</span>,
+              I'm always looking for the next challenging problem to solve—whether it's in robotics, AI, or quantitative
+              finance.
             </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-            {highlights.map((highlight, index) => {
-              const Icon = highlight.icon
-              return (
-                <Card
-                  key={index}
-                  className={`p-6 text-center hover:shadow-xl transition-all duration-700 border-2 hover:border-primary/30 ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                  }`}
-                  style={{ transitionDelay: `${400 + index * 100}ms` }}
-                >
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{highlight.title}</h3>
-                  <p className="text-sm text-muted-foreground">{highlight.description}</p>
-                </Card>
-              )
-            })}
+            <p className="text-sm italic text-muted-foreground/80">
+              When I'm not coding or building robots, you'll find me competing in Model UN, teaching robotics to younger
+              students, or diving deep into financial markets and algorithmic trading strategies.
+            </p>
           </div>
         </div>
       </div>

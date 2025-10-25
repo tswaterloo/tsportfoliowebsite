@@ -1,7 +1,4 @@
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
 
 const experiences = [
   {
@@ -11,10 +8,7 @@ const experiences = [
     description:
       "Led 6-person team to Finalist position at VEX Robotics World Championship, ranking top 2 of 20,000 teams worldwide. Worked 20+ hrs/wk on code/build/strategy and engineering notebook with detailed CAD/build/code documentation, resulting in 5x state-level award wins. Programmed drive, autonomous, PID, and odometry systems in VEXCode Pro/PROS (C++ based). Designed robots using Fusion 360, Onshape, and SolidWorks.",
     technologies: ["C++", "VEXCode Pro", "PROS", "Fusion 360", "Onshape", "SolidWorks", "PID Control", "Odometry"],
-    links: [
-      { label: "CAD Portfolio", url: "http://bit.ly/46xUgox" },
-      { label: "Engineering Notebooks", url: "https://bit.ly/46tg7gQ" },
-    ],
+    links: [{ label: "Engineering Notebooks", url: "https://bit.ly/46tg7gQ" }],
   },
   {
     period: "May 2024 — May 2025",
@@ -32,7 +26,7 @@ const experiences = [
     description:
       "Only AI team directly invited to VEX World Championship for Special Showcase. Developed position mapping and object detection code using YOLOv5 deep learning computer vision model. Engineered serial communication between NVIDIA Jetson Nano (Linux) & V5 Brain for autonomous navigation. Optimized system performance 5x through TensorRT GPU acceleration.",
     technologies: ["Python", "YOLOv5", "TensorRT", "NVIDIA Jetson Nano", "Linux", "Computer Vision", "Deep Learning"],
-    links: [{ label: "Self-Coded Website", url: "https://bit.ly/3KyGHh4" }],
+    links: [],
   },
   {
     period: "June 2023 — August 2023",
@@ -66,41 +60,59 @@ const experiences = [
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24">
+    <section id="experience" className="py-8 border-b border-border/30">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Experience & Leadership</h2>
-          <div className="space-y-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-3">Experience</h2>
+            <p className="text-sm text-muted-foreground font-mono">Leadership / Research / Development</p>
+          </div>
+
+          <div className="space-y-0">
             {experiences.map((exp, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                <div className="flex flex-col md:flex-row md:items-start gap-4 mb-4">
-                  <span className="text-sm text-muted-foreground md:min-w-[180px]">{exp.period}</span>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold mb-1">{exp.title}</h3>
-                    <p className="text-primary mb-3">{exp.company}</p>
-                    <p className="text-muted-foreground leading-relaxed mb-4">{exp.description}</p>
-                    {exp.links && (
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {exp.links.map((link) => (
-                          <Button key={link.label} variant="outline" size="sm" asChild>
-                            <a href={link.url} target="_blank" rel="noopener noreferrer">
-                              {link.label}
-                              <ExternalLink className="ml-2 h-3 w-3" />
-                            </a>
-                          </Button>
-                        ))}
-                      </div>
-                    )}
-                    <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech) => (
-                        <Badge key={tech} variant="secondary">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
+              <div
+                key={index}
+                className="group relative border-l-2 border-border pl-8 pb-12 hover:border-primary transition-colors duration-300"
+              >
+                <div className="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-border group-hover:bg-primary group-hover:scale-150 transition-all duration-300" />
+
+                <div className="font-mono text-xs text-muted-foreground mb-2">{exp.period}</div>
+
+                <h3 className="text-2xl font-light tracking-tight mb-1 group-hover:text-primary transition-colors">
+                  {exp.title}
+                </h3>
+                <p className="text-sm text-primary/80 mb-4 font-mono">{exp.company}</p>
+
+                <p className="text-base text-muted-foreground leading-relaxed mb-4 max-w-3xl">{exp.description}</p>
+
+                {exp.links && exp.links.length > 0 && (
+                  <div className="flex flex-wrap gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {exp.links.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
+                      >
+                        {link.label}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ))}
                   </div>
+                )}
+
+                <div className="flex flex-wrap gap-2">
+                  {exp.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="font-mono text-xs text-muted-foreground/70 hover:text-primary transition-colors cursor-default"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
