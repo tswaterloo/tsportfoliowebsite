@@ -69,10 +69,10 @@ export function About() {
              
             </p>
             <p>
-                 I spend a lot of time in C++ and Python, and recently started exploring full-stack development (ex: this website). I've also worked extensively with microcontrollers, PCB design, and CAD softwares.
+                 I spend a lot of time in C++ and Python, and recently started exploring full-stack development (ex: this website). I've also worked extensively with embedded systems, microcontrollers, PCB design, and CAD softwares.
             </p>
             <p>
-                Previously, I led my Robotics Team to a World Championshp Finalist position,  conducted ECE research at Hofstra University, and was invited to present an AI showcase by the CTO of VEX Robotics.
+                Previously, I led my Robotics Team to a World Championshp Finalist position,  conducted ECE research at Hofstra University, and was invited to present an AI showcase in Dallas by the CTO of VEX Robotics.
             </p>
 
             <p>
