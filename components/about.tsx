@@ -64,17 +64,23 @@ export function About() {
             }`}
           >
             <p>
-              Hi, I'm Tanush Shah, a first year Electrical Engineering student at the University of Waterloo. I'm excited about opportunities to solve difficult and interesting problems, whether they be in software, hardware, data, etc.
+              I'm Tanush, a first-year Electrical Engineering student at the University of Waterloo. I'm looking for opportunities to solve difficult and exciting problems. 
 
-              On the <span className="text-foreground font-medium">software</span> side, I spend a lot of time in C++ as well as Python. Recently, I've become interested in full-stack development, which led to the creation of this site! In terms of <span className="text-foreground font-medium">firmware/hardware</span>
-              , I've used Arduino & ESP32 extensively, as well as KiCAD. I also like KiCad. I also have 6 years of experience with CAD softwares such as Fusion 360.
-            
+             
             </p>
             <p>
-               I've done lots of cool things utilizing the aforementioned skills, scroll down on this website to see a showcase of said things!
+                 I spend a lot of time in C++ and Python, and recently started exploring full-stack development (ex: this website). I've also worked extensively with microcontrollers, PCB design, and CAD softwares.
+            </p>
+            <p>
+                Previously, I led my Robotics Team to a World Championshp Finalist position,  conducted ECE research at Hofstra University, and was invited to present an AI showcase by the CTO of VEX Robotics.
+            </p>
+
+            <p>
+                To see what else I have done and what I am currently doing, scroll down!
+    
             </p>
             <p className="text-sm italic text-muted-foreground/80">
-              Recently, I've become interested in learning more about algorithmic trading. I am working a project related to it which I will complete and upload soon.
+              Note: Recently, I've become interested in learning more about algorithmic trading. I am working a project related to it which I will complete and share soon.
             </p>
           </div>
         </div>
