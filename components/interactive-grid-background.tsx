@@ -37,12 +37,11 @@ export function InteractiveGridBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      ctx.strokeStyle = "rgba(130, 130, 130, 0.38)"
+      ctx.strokeStyle = "rgba(120, 120, 120, 0.35)"
       ctx.lineWidth = 1.8
 
       const mousePos = mousePosRef.current
 
-      // Vertical lines with subtle squiggle
       for (let x = 0; x <= canvas.width; x += gridSize) {
         ctx.beginPath()
         for (let y = 0; y <= canvas.height; y += 5) {
@@ -52,9 +51,6 @@ export function InteractiveGridBackground() {
 
           let offsetX = x
           let offsetY = y
-
-          // Subtle wave effect
-          offsetX += Math.sin(y * 0.01) * 1.5
 
           if (distance < warpRadius) {
             const warpFactor = (1 - distance / warpRadius) * warpStrength
@@ -71,7 +67,6 @@ export function InteractiveGridBackground() {
         ctx.stroke()
       }
 
-      // Horizontal lines with subtle squiggle
       for (let y = 0; y <= canvas.height; y += gridSize) {
         ctx.beginPath()
         for (let x = 0; x <= canvas.width; x += 5) {
@@ -81,9 +76,6 @@ export function InteractiveGridBackground() {
 
           let offsetX = x
           let offsetY = y
-
-          // Subtle wave effect
-          offsetY += Math.sin(x * 0.01) * 1.5
 
           if (distance < warpRadius) {
             const warpFactor = (1 - distance / warpRadius) * warpStrength
