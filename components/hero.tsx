@@ -46,6 +46,8 @@ export function Hero() {
                     "Electrical Engineering Student",
                     "Robotics Engineer",
                     "Full Stack Developer",
+                    "Embedded Systems Developer",
+                    "Firmware Engineer",
                     "AI/ML Enthusiast",
                   ]}
                 />
@@ -57,9 +59,8 @@ export function Hero() {
             Electrical Engineering @ University of Waterloo
           </p>
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Electrical engineering student with hands-on experience in embedded systems, full-stack development, and
-            machine learning. Skilled in C++, Python, JavaScript, and hardware design with a proven track record in
-            research, firmware development, and building innovative solutions across robotics, AI, and web technologies.
+            Electrical engineering student with hands-on experience in software development, robotics, embedded systems, and
+            machine learning. Skilled in several programming language as well as hardware design. Passionate about making an impact.
           </p>
 
           <div className="flex items-center justify-center gap-6 mb-10 flex-wrap">

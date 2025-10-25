@@ -1,15 +1,11 @@
 "use client"
 
-import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Server, Database, Code, Workflow, Cloud, GitBranch } from "lucide-react"
 
 const techStack = [
   {
-    icon: Code,
-    title: "Frontend",
-    description: "Modern React with TypeScript and Next.js",
+    category: "Frontend",
     technologies: [
       { name: "React", usage: "Component-based UI architecture for all pages and interactive elements" },
       { name: "Next.js 15", usage: "Server-side rendering, API routes, and optimized production builds" },
@@ -18,12 +14,9 @@ const techStack = [
       { name: "Framer Motion", usage: "Smooth animations and transitions throughout the portfolio" },
       { name: "shadcn/ui", usage: "Pre-built accessible UI components (buttons, cards, forms, tooltips)" },
     ],
-    color: "text-cyan-400",
   },
   {
-    icon: Server,
-    title: "Backend",
-    description: "RESTful APIs with Node.js and Express-style routing",
+    category: "Backend",
     technologies: [
       { name: "Node.js", usage: "JavaScript runtime powering all server-side logic and API endpoints" },
       { name: "Next.js API Routes", usage: "RESTful endpoints at /api/sql/* for CRUD operations" },
@@ -31,12 +24,9 @@ const techStack = [
       { name: "Server Actions", usage: "Server-side form handling and data mutations" },
       { name: "WebSockets", usage: "Real-time telemetry dashboard with live sensor data streaming" },
     ],
-    color: "text-green-400",
   },
   {
-    icon: Database,
-    title: "Database",
-    description: "Both SQL and NoSQL database management",
+    category: "Database",
     technologies: [
       {
         name: "PostgreSQL",
@@ -47,12 +37,9 @@ const techStack = [
       { name: "SQL Queries", usage: "Raw SQL queries with parameterized statements for data retrieval and insertion" },
       { name: "Database Migrations", usage: "SQL scripts in /scripts folder for schema creation and data seeding" },
     ],
-    color: "text-purple-400",
   },
   {
-    icon: Workflow,
-    title: "CI/CD & DevOps",
-    description: "Automated deployment and testing pipelines",
+    category: "CI/CD & DevOps",
     technologies: [
       { name: "GitHub Actions", usage: "Automated CI/CD pipeline for linting, type-checking, and deployment" },
       { name: "Docker", usage: "Multi-stage containerization for consistent development and production environments" },
@@ -60,12 +47,9 @@ const techStack = [
       { name: "Vercel", usage: "Production hosting with automatic deployments and edge network distribution" },
       { name: "Automated Testing", usage: "Continuous integration testing on every commit and pull request" },
     ],
-    color: "text-blue-400",
   },
   {
-    icon: Cloud,
-    title: "3D & Graphics",
-    description: "Interactive 3D visualizations and CAD",
+    category: "3D & Graphics",
     technologies: [
       { name: "Three.js", usage: "WebGL rendering engine for 3D robot visualization at /robot-3d" },
       { name: "React Three Fiber", usage: "React renderer for Three.js enabling declarative 3D scenes" },
@@ -73,12 +57,9 @@ const techStack = [
       { name: "3D Rendering", usage: "Real-time lighting, shadows, and camera controls for robot viewer" },
       { name: "CAD Viewer", usage: "Interactive 3D model viewer with orbit controls and animations" },
     ],
-    color: "text-pink-400",
   },
   {
-    icon: GitBranch,
-    title: "Real-time & Data",
-    description: "Live data streaming and visualization",
+    category: "Real-time & Data",
     technologies: [
       { name: "WebSockets", usage: "Bidirectional communication for real-time telemetry dashboard at /telemetry" },
       {
@@ -89,7 +70,6 @@ const techStack = [
       { name: "Recharts", usage: "Composable charting library for line charts, area charts, and gauges" },
       { name: "Live Telemetry", usage: "Simulated robot sensor data streaming at 10Hz update rate" },
     ],
-    color: "text-orange-400",
   },
 ]
 
@@ -114,24 +94,15 @@ export function TechStack() {
               {techStack.map((stack, index) => {
                 const Icon = stack.icon
                 return (
-                  <Card
-                    key={index}
-                    className="p-6 border-2 hover:border-primary/50 transition-all duration-300 group bg-card/50 backdrop-blur hover:shadow-xl hover:shadow-primary/10"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <Icon className={`h-6 w-6 ${stack.color}`} />
-                      </div>
-                      <h3 className="text-lg font-semibold">{stack.title}</h3>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">{stack.description}</p>
-                    <div className="flex flex-wrap gap-2">
+                  <div key={index} className="space-y-3">
+                    <h3 className="text-lg font-semibold text-foreground/90">{stack.category}</h3>
+                    <div className="flex flex-wrap gap-2 pl-4 border-l-2 border-primary/30">
                       {stack.technologies.map((tech) => (
                         <Tooltip key={tech.name}>
                           <TooltipTrigger asChild>
                             <Badge
                               variant="secondary"
-                              className="text-xs bg-muted hover:bg-primary/20 transition-colors text-foreground cursor-help"
+                              className="text-sm bg-muted hover:bg-primary/20 transition-colors text-foreground cursor-help px-3 py-1"
                             >
                               {tech.name}
                             </Badge>
@@ -142,20 +113,19 @@ export function TechStack() {
                         </Tooltip>
                       ))}
                     </div>
-                  </Card>
+                  </div>
                 )
               })}
             </div>
           </TooltipProvider>
 
           <div className="mt-12 text-center">
-            <Card className="p-6 border-2 border-primary/30 bg-primary/5 backdrop-blur">
+            <div className="p-4 border-l-2 border-primary/50 bg-primary/5">
               <p className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Live Implementation:</span> Every technology listed
-                above is actively used in this portfolio. This isn't just a list of skills—it's a working demonstration
-                of full-stack development.
+                above is actively used in this portfolio.
               </p>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
