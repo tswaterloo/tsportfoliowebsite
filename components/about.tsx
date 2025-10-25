@@ -64,7 +64,7 @@ export function About() {
             }`}
           >
             <p>
-              I'm Tanush, a first-year Electrical Engineering student at the University of Waterloo. I'm looking for opportunities to solve difficult and exciting problems. 
+              I'm Tanush, a first-year Electrical Engineering student at the University of Waterloo. I'm looking for opportunities to work on exciting and interesting technologies.
 
              
             </p>
