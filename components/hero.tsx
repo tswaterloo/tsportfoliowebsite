@@ -59,7 +59,7 @@ export function Hero() {
             Electrical Engineering @ University of Waterloo
           </p>
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Electrical engineering student looking to solve difficult problems and make an impact. Hands-on experience in software development, robotics, embedded systems, hardware. Prev: VEX Robotics World Finalist, ECE Research @ Hofstra University, special AI showcase presenter @ Robotics World Championship in Dallas.
+            Electrical engineering student looking to solve difficult problems and make an impact. Hands-on experience in software development, robotics, embedded systems, hardware. | Prev: VEX Robotics World Finalist, ECE Research @ Hofstra University, special AI showcase presenter @ Robotics World Championship in Dallas.
           </p>
 
           <div className="flex items-center justify-center gap-6 mb-10 flex-wrap">
