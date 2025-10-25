@@ -64,17 +64,17 @@ export function About() {
             }`}
           >
             <p>
-              Hi, I'm Tanush Shah, a first year Electrical Engineering student at the University of Waterloo. I love solving difficult problems, and I am excited about opportunities within software, hardware, design, or any that may be intellectually stimulating
-              
-              On the <span className="text-foreground font-medium">software</span> side, I spend a lot of time in C++ as well as Python. Recently, I've become interested in full-stack development, which led to the creation of this site! I enjoy using Linux, and I've been experimenting with computer vision. In terms of <span className="text-foreground font-medium">firmware/hardware</span>
-              , I'm most experienced with Arduino, ESP32, and ESP32. I also like KiCad. Previously, I did Competitive VEX Robotics for 8 years, as the lead designer (various CAD softwares) and programmer (C++) on my team. I led my team to the <span className="text-foreground font-medium">VEX World Championship Finals</span> (top 2 out of 20,000 teams), as well as many other awards such as: 1x Worlds Division Champion, 1x Worlds Division Finalist, 2x New Jersey Tournament Champion, 5x Judges' Awards.
+              Hi, I'm Tanush Shah, a first year Electrical Engineering student at the University of Waterloo. I'm excited about opportunities to solve difficult and interesting problems, whether they be in software, hardware, data, etc.
+
+              On the <span className="text-foreground font-medium">software</span> side, I spend a lot of time in C++ as well as Python. Recently, I've become interested in full-stack development, which led to the creation of this site! In terms of <span className="text-foreground font-medium">firmware/hardware</span>
+              , I've used Arduino & ESP32 extensively, as well as KiCAD. I also like KiCad. I also have 6 years of experience with CAD softwares such as Fusion 360.
+            
             </p>
             <p>
-              I've done lots of other cool things and am always learning more and looking for a new problem to solve! Scroll down on this website to see a showcase what else I've done in detail.
-
+               I've done lots of cool things utilizing the aforementioned skills, scroll down on this website to see a showcase of said things!
             </p>
             <p className="text-sm italic text-muted-foreground/80">
-              These days, I am interested in learning more about algorithmic trading and financial modeling.
+              Recently, I've become interested in learning more about algorithmic trading. I am working a project related to it which I will complete and upload soon.
             </p>
           </div>
         </div>
