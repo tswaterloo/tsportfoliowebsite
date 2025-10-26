@@ -13,7 +13,7 @@ export function Navigation() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      const sections = ["home", "about", "experience", "projects", "skills", "contact"]
+      const sections = ["home", "about", "experience", "projects", "skills", "metrics", "contact"]
       for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
@@ -56,7 +56,7 @@ export function Navigation() {
             </button>
 
             <div className="hidden md:flex items-center gap-8">
-              {["about", "experience", "projects", "skills", "contact"].map((section) => (
+              {["about", "experience", "projects", "skills", "metrics", "contact"].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -91,7 +91,7 @@ export function Navigation() {
         <div className="fixed inset-0 z-40 md:hidden">
           <div className="fixed inset-0 bg-background/95 backdrop-blur-lg pt-20 px-6">
             <div className="flex flex-col gap-6">
-              {["home", "about", "experience", "projects", "skills", "contact"].map((section) => (
+              {["home", "about", "experience", "projects", "skills", "metrics", "contact"].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}

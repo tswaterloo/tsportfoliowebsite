@@ -22,7 +22,6 @@ const techStack = [
       { name: "Next.js API Routes", usage: "RESTful endpoints at /api/sql/* for CRUD operations" },
       { name: "REST API", usage: "HTTP endpoints for projects, skills, experience, and contact form data" },
       { name: "Server Actions", usage: "Server-side form handling and data mutations" },
-      { name: "WebSockets", usage: "Real-time telemetry dashboard with live sensor data streaming" },
     ],
   },
   {
@@ -41,34 +40,21 @@ const techStack = [
   {
     category: "CI/CD & DevOps",
     technologies: [
-      { name: "GitHub Actions", usage: "Automated CI/CD pipeline for linting, type-checking, and deployment" },
-      { name: "Docker", usage: "Multi-stage containerization for consistent development and production environments" },
-      { name: "Docker Compose", usage: "Local development setup with database and application containers" },
-      { name: "Vercel", usage: "Production hosting with automatic deployments and edge network distribution" },
-      { name: "Automated Testing", usage: "Continuous integration testing on every commit and pull request" },
+      {
+        name: "GitHub Actions",
+        usage: "Automated CI/CD pipeline for linting, type checking, and building on every push",
+      },
+      { name: "Docker", usage: "Containerization for consistent development and production environments" },
+      { name: "Docker Compose", usage: "Multi-container orchestration for local development with databases" },
+      { name: "Vercel", usage: "Production deployment platform with automatic previews and edge network CDN" },
     ],
   },
   {
     category: "3D & Graphics",
     technologies: [
-      { name: "Three.js", usage: "WebGL rendering engine for 3D robot visualization at /robot-3d" },
+      { name: "Three.js", usage: "WebGL rendering engine for 3D robot visualization in the showcase section" },
       { name: "React Three Fiber", usage: "React renderer for Three.js enabling declarative 3D scenes" },
       { name: "WebGL", usage: "Hardware-accelerated 3D graphics rendering in the browser" },
-      { name: "3D Rendering", usage: "Real-time lighting, shadows, and camera controls for robot viewer" },
-      { name: "CAD Viewer", usage: "Interactive 3D model viewer with orbit controls and animations" },
-    ],
-  },
-  {
-    category: "Real-time & Data",
-    technologies: [
-      { name: "WebSockets", usage: "Bidirectional communication for real-time telemetry dashboard at /telemetry" },
-      {
-        name: "Real-time Charts",
-        usage: "Live updating charts showing sensor data, battery levels, and gyroscope readings",
-      },
-      { name: "Data Visualization", usage: "Interactive charts and graphs using Recharts library" },
-      { name: "Recharts", usage: "Composable charting library for line charts, area charts, and gauges" },
-      { name: "Live Telemetry", usage: "Simulated robot sensor data streaming at 10Hz update rate" },
     ],
   },
 ]
@@ -92,7 +78,6 @@ export function TechStack() {
           <TooltipProvider delayDuration={200}>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {techStack.map((stack, index) => {
-                const Icon = stack.icon
                 return (
                   <div key={index} className="space-y-3">
                     <h3 className="text-lg font-semibold text-foreground/90">{stack.category}</h3>

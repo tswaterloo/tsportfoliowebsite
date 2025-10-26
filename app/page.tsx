@@ -10,6 +10,7 @@ import { Contact } from "@/components/contact"
 import { Navigation } from "@/components/navigation"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { InteractiveGridBackground } from "@/components/interactive-grid-background"
+import { LiveMetrics } from "@/components/live-metrics"
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <Skills />
       <TechStack />
       <RobotShowcase />
+      <LiveMetrics />
       <Contact />
     </main>
   )

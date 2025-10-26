@@ -1,4 +1,4 @@
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, Briefcase, Award, Code, Users } from "lucide-react"
 
 const experiences = [
   {
@@ -9,6 +9,8 @@ const experiences = [
       "Led 6-person team to Finalist position at VEX Robotics World Championship, ranking top 2 of 20,000 teams worldwide. Worked 20+ hrs/wk on code/build/strategy and engineering notebook with detailed CAD/build/code documentation, resulting in 5x state-level award wins. Programmed drive, autonomous, PID, and odometry systems in VEXCode Pro/PROS (C++ based). Designed robots using Fusion 360, Onshape, and SolidWorks.",
     technologies: ["C++", "VEXCode Pro", "PROS", "Fusion 360", "Onshape", "SolidWorks", "PID Control", "Odometry"],
     links: [{ label: "Engineering Notebooks", url: "https://bit.ly/46tg7gQ" }],
+    icon: Award,
+    color: "from-yellow-400 to-orange-500",
   },
   {
     period: "May 2024 — May 2025",
@@ -18,6 +20,8 @@ const experiences = [
       "Project 1: Designed, built & coded modular large-format gantry 3D printer in Onshape, coding multi-axis motion control & G-code execution with Duet 3D Controller & RepRap Firmware. Project 2: Designed, built, & coded mobile 4WD 3D Printing Robot using Arduino; fabricated custom PCB shield using KiCad and implemented motion control algorithms & path planning for stepper motors in C++. Presented research and live demo at symposium (2000+ attendees).",
     technologies: ["Arduino", "C++", "Onshape", "KiCad", "Duet 3D", "RepRap Firmware", "PCB Design", "Motion Control"],
     links: [{ label: "Project Showcase", url: "https://bit.ly/48rf9Ej" }],
+    icon: Code,
+    color: "from-cyan-400 to-blue-500",
   },
   {
     period: "June 2021 — June 2023",
@@ -27,6 +31,8 @@ const experiences = [
       "Only AI team directly invited to VEX World Championship for Special Showcase. Developed position mapping and object detection code using YOLOv5 deep learning computer vision model. Engineered serial communication between NVIDIA Jetson Nano (Linux) & V5 Brain for autonomous navigation. Optimized system performance 5x through TensorRT GPU acceleration.",
     technologies: ["Python", "YOLOv5", "TensorRT", "NVIDIA Jetson Nano", "Linux", "Computer Vision", "Deep Learning"],
     links: [],
+    icon: Briefcase,
+    color: "from-purple-400 to-pink-500",
   },
   {
     period: "June 2023 — August 2023",
@@ -47,6 +53,8 @@ const experiences = [
       "NumPy",
       "Matplotlib",
     ],
+    icon: Code,
+    color: "from-green-400 to-emerald-500",
   },
   {
     period: "September 2022 — June 2025",
@@ -55,6 +63,8 @@ const experiences = [
     description:
       "Awards: Outstanding Delegation at Harvard China & Scripps Ranch CA, Best Delegation at Bombay 2023. Grew club to over 100 members (250% increase), taught online lessons to underprivileged areas in NJ & India.",
     technologies: ["Leadership", "Public Speaking", "Research", "Diplomacy"],
+    icon: Users,
+    color: "from-red-400 to-rose-500",
   },
 ]
 
@@ -69,51 +79,73 @@ export function Experience() {
           </div>
 
           <div className="space-y-0">
-            {experiences.map((exp, index) => (
-              <div
-                key={index}
-                className="group relative border-l-2 border-border pl-8 pb-12 hover:border-primary transition-colors duration-300"
-              >
-                <div className="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-border group-hover:bg-primary group-hover:scale-150 transition-all duration-300" />
+            {experiences.map((exp, index) => {
+              const Icon = exp.icon
+              return (
+                <div
+                  key={index}
+                  className="group relative border-l-2 border-border pl-8 pb-12 hover:border-primary/60 transition-all duration-500"
+                >
+                  <div className="absolute left-[-17px] top-0 w-8 h-8 rounded-full bg-background border-2 border-border group-hover:border-primary flex items-center justify-center group-hover:scale-125 transition-all duration-500 z-10">
+                    <Icon
+                      className={`h-4 w-4 text-muted-foreground group-hover:bg-gradient-to-br group-hover:${exp.color} group-hover:bg-clip-text group-hover:text-transparent transition-all duration-500`}
+                    />
+                  </div>
 
-                <div className="font-mono text-xs text-muted-foreground mb-2">{exp.period}</div>
+                  <div
+                    className={`absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b ${exp.color} opacity-0 group-hover:opacity-60 transition-opacity duration-500`}
+                  />
 
-                <h3 className="text-2xl font-light tracking-tight mb-1 group-hover:text-primary transition-colors">
-                  {exp.title}
-                </h3>
-                <p className="text-sm text-primary/80 mb-4 font-mono">{exp.company}</p>
+                  <div className="font-mono text-xs text-muted-foreground mb-2 group-hover:text-primary/70 transition-colors duration-300">
+                    {exp.period}
+                  </div>
 
-                <p className="text-base text-muted-foreground leading-relaxed mb-4 max-w-3xl">{exp.description}</p>
+                  <h3
+                    className={`text-2xl font-light tracking-tight mb-1 group-hover:bg-gradient-to-r group-hover:${exp.color} group-hover:bg-clip-text group-hover:text-transparent group-hover:translate-x-1 transition-all duration-300`}
+                  >
+                    {exp.title}
+                  </h3>
+                  <p className="text-sm text-primary/80 mb-4 font-mono group-hover:text-primary transition-colors duration-300">
+                    {exp.company}
+                  </p>
 
-                {exp.links && exp.links.length > 0 && (
-                  <div className="flex flex-wrap gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {exp.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
+                  <p className="text-base text-muted-foreground leading-relaxed mb-4 max-w-3xl group-hover:text-foreground/90 transition-colors duration-300">
+                    {exp.description}
+                  </p>
+
+                  {exp.links && exp.links.length > 0 && (
+                    <div className="flex flex-wrap gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                      {exp.links.map((link) => (
+                        <a
+                          key={link.label}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 hover:gap-2 transition-all"
+                        >
+                          {link.label}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2">
+                    {exp.technologies.map((tech, techIndex) => (
+                      <span
+                        key={tech}
+                        className={`font-mono text-xs px-2 py-1 rounded bg-background/50 border border-border/30 text-muted-foreground/70 hover:border-primary/50 hover:bg-gradient-to-r hover:${exp.color} hover:bg-clip-text hover:text-transparent hover:scale-105 transition-all duration-200 cursor-default`}
+                        style={{
+                          transitionDelay: `${techIndex * 30}ms`,
+                        }}
                       >
-                        {link.label}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
+                        {tech}
+                      </span>
                     ))}
                   </div>
-                )}
-
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="font-mono text-xs text-muted-foreground/70 hover:text-primary transition-colors cursor-default"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
