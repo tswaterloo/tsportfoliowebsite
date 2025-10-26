@@ -109,7 +109,7 @@ export function Contact() {
               </div>
               <div>
                 <h3 className="font-semibold mb-1">Location</h3>
-                <p className="text-muted-foreground">Waterloo, ON / Summit, NJ</p>
+                <p className="text-muted-foreground">Waterloo, ON / Millburn, NJ</p>
               </div>
             </div>
           </div>

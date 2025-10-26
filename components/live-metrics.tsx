@@ -61,28 +61,28 @@ export function LiveMetrics() {
       label: "Total Visitors",
       value: metrics.visitors.toLocaleString(),
       color: "text-cyan-400",
-      bgColor: "bg-cyan-400/10",
+      gradient: "from-cyan-400/20 to-transparent",
     },
     {
       icon: MessageSquare,
       label: "Contact Submissions",
       value: metrics.submissions.toLocaleString(),
       color: "text-green-400",
-      bgColor: "bg-green-400/10",
+      gradient: "from-green-400/20 to-transparent",
     },
     {
       icon: Zap,
       label: "API Calls",
       value: metrics.apiCalls.toLocaleString(),
       color: "text-yellow-400",
-      bgColor: "bg-yellow-400/10",
+      gradient: "from-yellow-400/20 to-transparent",
     },
     {
       icon: TrendingUp,
       label: "Avg Response Time",
       value: `${metrics.responseTime}ms`,
       color: "text-purple-400",
-      bgColor: "bg-purple-400/10",
+      gradient: "from-purple-400/20 to-transparent",
     },
   ]
 
@@ -95,9 +95,9 @@ export function LiveMetrics() {
   return (
     <section id="metrics" className="py-20 relative">
       <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
               Live System Metrics
             </h2>
             <p className="text-muted-foreground text-lg">
@@ -105,63 +105,90 @@ export function LiveMetrics() {
             </p>
           </div>
 
-          <div className="mb-8">
-            <h3 className="text-xl font-semibold mb-4 text-center text-muted-foreground">System Status</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          <div className="mb-16">
+            <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-6">System Status</h3>
+            <div className="flex justify-between items-center max-w-4xl">
               {statusCards.map((status) => {
                 const Icon = status.icon
                 return (
-                  <div
-                    key={status.label}
-                    className="flex items-center gap-3 rounded-lg border border-border/50 bg-background/50 backdrop-blur-sm p-4 hover:border-green-500/50 transition-all"
-                  >
+                  <div key={status.label} className="flex items-center gap-3 group">
                     <div className="relative">
-                      <Icon className={`h-5 w-5 ${status.color}`} />
-                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      <div
+                        className={`w-10 h-10 rounded-full bg-gradient-to-br ${status.color.replace("text-", "from-")}/10 to-transparent flex items-center justify-center transition-transform group-hover:scale-110`}
+                      >
+                        <Icon className={`h-5 w-5 ${status.color}`} />
+                      </div>
+                      <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50" />
                     </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-medium">{status.label}</div>
+                    <div>
+                      <div className="text-sm font-semibold">{status.label}</div>
                       <div className="text-xs text-muted-foreground">{status.service}</div>
                     </div>
-                    <div className="text-xs text-green-400 font-mono">●</div>
                   </div>
                 )
               })}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
             {metricCards.map((metric, index) => {
               const Icon = metric.icon
               return (
                 <div
                   key={metric.label}
-                  className="group relative overflow-hidden rounded-lg border border-border/50 bg-background/50 backdrop-blur-sm p-6 hover:border-border transition-all hover:scale-105"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group relative"
+                  style={{
+                    animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
+                  }}
                 >
-                  <div className={`${metric.bgColor} w-12 h-12 rounded-lg flex items-center justify-center mb-4`}>
-                    <Icon className={`h-6 w-6 ${metric.color}`} />
+                  <div className="flex items-center gap-6">
+                    <div
+                      className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${metric.gradient} flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-3`}
+                    >
+                      <Icon className={`h-8 w-8 ${metric.color}`} />
+                      <div
+                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${metric.gradient} blur-xl opacity-0 group-hover:opacity-50 transition-opacity`}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-3 mb-1">
+                        <span
+                          className={`text-4xl md:text-5xl font-bold ${metric.color} transition-all group-hover:translate-x-2`}
+                        >
+                          {metric.value}
+                        </span>
+                        <span className="text-lg text-muted-foreground">{metric.label}</span>
+                      </div>
+                      <div
+                        className={`h-0.5 bg-gradient-to-r ${metric.gradient} w-0 group-hover:w-full transition-all duration-500`}
+                      />
+                    </div>
                   </div>
-                  <div className="text-3xl font-bold mb-2 bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-transparent">
-                    {metric.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{metric.label}</div>
-
-                  <div
-                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${metric.bgColor} -z-10`}
-                  />
                 </div>
               )
             })}
           </div>
 
-          <div className="mt-8 text-center">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-16 pt-8 border-t border-border/30">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Powered by Next.js, PostgreSQL (Neon), Resend, and deployed on Vercel with CI/CD via GitHub Actions
             </p>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   )
 }

@@ -1,38 +1,37 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 
 const skillCategories = [
   {
     title: "Programming Languages",
     skills: ["C++", "Python", "JavaScript", "TypeScript", "Java", "SQL"],
-    color: "from-blue-500/10 to-cyan-500/10 border-blue-500/30",
+    color: "from-blue-500 to-cyan-500",
   },
   {
     title: "AI & Machine Learning",
     skills: ["PyTorch", "TensorFlow", "YOLOv5", "TensorRT", "Computer Vision", "NLP (LSTM, BERT)"],
-    color: "from-purple-500/10 to-pink-500/10 border-purple-500/30",
+    color: "from-purple-500 to-pink-500",
   },
   {
     title: "Embedded Systems & Hardware",
     skills: ["Arduino", "STM32", "ESP32", "NVIDIA Jetson", "PCB Design (KiCad)", "Linux"],
-    color: "from-orange-500/10 to-red-500/10 border-orange-500/30",
+    color: "from-orange-500 to-red-500",
   },
   {
     title: "CAD & Manufacturing",
     skills: ["Fusion 360", "Onshape", "SolidWorks", "3D Printing", "CNC Machining", "KiCad"],
-    color: "from-green-500/10 to-emerald-500/10 border-green-500/30",
+    color: "from-green-500 to-emerald-500",
   },
   {
     title: "Development Tools & Frameworks",
     skills: ["Git", "React", "Node.js", "Express.js", "MongoDB", "Pandas", "NumPy", "Matplotlib"],
-    color: "from-cyan-500/10 to-blue-500/10 border-cyan-500/30",
+    color: "from-cyan-500 to-blue-500",
   },
   {
     title: "Robotics & Control Systems",
     skills: ["PID Control", "Odometry", "Path Planning", "Motion Control", "Sensor Fusion", "Autonomous Systems"],
-    color: "from-pink-500/10 to-rose-500/10 border-pink-500/30",
+    color: "from-pink-500 to-rose-500",
   },
 ]
 
@@ -52,32 +51,27 @@ export function Skills() {
             {skillCategories.map((category, index) => (
               <div
                 key={index}
-                className="space-y-3 relative"
+                className="space-y-3 relative group"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div
-                  className={`absolute inset-0 -mx-6 rounded-lg bg-gradient-to-r ${category.color} transition-opacity duration-300 ${
-                    hoveredIndex === index ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{
-                    width: "calc(100% + 3rem)",
-                  }}
-                />
-
-                <div className="relative z-10">
-                  <h3 className="text-lg font-semibold text-foreground/90">{category.title}</h3>
-                  <div className="flex flex-wrap gap-2 pl-4 border-l-2 border-primary/30">
-                    {category.skills.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="secondary"
-                        className="bg-muted hover:bg-primary/20 hover:text-primary transition-colors cursor-default text-foreground text-sm px-3 py-1"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
+                <h3
+                  className={`text-xl font-semibold bg-gradient-to-r ${category.color} bg-clip-text text-transparent transition-all duration-300 ${hoveredIndex === index ? "translate-x-2" : ""}`}
+                >
+                  {category.title}
+                </h3>
+                <div className="flex flex-wrap gap-x-4 gap-y-2 pl-4 border-l-2 border-border/30 group-hover:border-primary/50 transition-colors">
+                  {category.skills.map((skill, skillIndex) => (
+                    <span
+                      key={skill}
+                      className="text-muted-foreground hover:text-foreground transition-colors cursor-default relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-gradient-to-r after:from-transparent hover:after:w-full after:transition-all after:duration-300"
+                      style={{
+                        transitionDelay: `${skillIndex * 30}ms`,
+                      }}
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}

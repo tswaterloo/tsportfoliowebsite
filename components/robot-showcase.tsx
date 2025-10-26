@@ -1,8 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Cable as Cube, Eye, ExternalLink } from "lucide-react"
+import { Cable as Cube, Eye } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
 import dynamic from "next/dynamic"
@@ -28,10 +27,10 @@ export function RobotShowcase() {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <Badge variant="outline" className="mb-4">
-              <Cube className="h-3 w-3 mr-1" />
+            <div className="inline-flex items-center gap-2 mb-4 text-sm font-mono text-primary/70 border-b border-primary/30 pb-1">
+              <Cube className="h-3 w-3" />
               3D Visualization
-            </Badge>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Interactive Robot Viewer</h2>
             <p className="text-lg text-muted-foreground max-w-2xl">
               Explore my VEX Robotics competition robot in 3D. Built with React Three Fiber and WebGL for real-time
@@ -73,34 +72,28 @@ export function RobotShowcase() {
           <div className="space-y-8">
             <div>
               <h3 className="text-xl font-semibold mb-2">VEX Robotics Competition Robot</h3>
-              <p className="text-muted-foreground mb-4">
-                The World Championship Robot that I designed.
-              </p>
+              <p className="text-muted-foreground mb-4">The World Championship Robot that I designed.</p>
 
               {/* Technologies */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                <Badge variant="secondary">React Three Fiber</Badge>
-                <Badge variant="secondary">Three.js</Badge>
-                <Badge variant="secondary">WebGL</Badge>
-                <Badge variant="secondary">TypeScript</Badge>
-                <Badge variant="secondary">GLTF Models</Badge>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 mb-6 pl-4 border-l-2 border-yellow-500/30">
+                {["React Three Fiber", "Three.js", "WebGL", "TypeScript", "GLTF Models"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-muted-foreground hover:text-yellow-500 transition-colors cursor-default relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-yellow-500 hover:after:w-full after:transition-all after:duration-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
 
               {/* Actions */}
-              <div className="flex flex-wrap gap-3">
-                <Link href="/robot-3d">
-                  <Button className="gap-2">
-                    <Eye className="h-4 w-4" />
-                    Launch 3D Viewer
-                  </Button>
-                </Link>
-                <Button variant="outline" className="gap-2 bg-transparent" asChild>
-                  <a href="http://bit.ly/46xUgox" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
-                    Competition Video
-                  </a>
-                </Button>
-              </div>
+              <Link
+                href="/robot-3d"
+                className="inline-flex items-center gap-2 text-lg font-medium text-foreground hover:text-red-500 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-red-500 hover:after:w-full after:transition-all after:duration-300"
+              >
+                <Eye className="h-4 w-4" />
+                Launch 3D Viewer
+              </Link>
             </div>
 
             {/* Technical Details - Flowing list style like skills section */}

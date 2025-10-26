@@ -130,11 +130,11 @@ export function Experience() {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-x-4 gap-y-2">
                     {exp.technologies.map((tech, techIndex) => (
                       <span
                         key={tech}
-                        className={`font-mono text-xs px-2 py-1 rounded bg-background/50 border border-border/30 text-muted-foreground/70 hover:border-primary/50 hover:bg-gradient-to-r hover:${exp.color} hover:bg-clip-text hover:text-transparent hover:scale-105 transition-all duration-200 cursor-default`}
+                        className={`text-sm text-muted-foreground/70 hover:bg-gradient-to-r hover:${exp.color} hover:bg-clip-text hover:text-transparent hover:scale-105 transition-all duration-200 cursor-default relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-gradient-to-r after:${exp.color} hover:after:w-full after:transition-all after:duration-300`}
                         style={{
                           transitionDelay: `${techIndex * 30}ms`,
                         }}

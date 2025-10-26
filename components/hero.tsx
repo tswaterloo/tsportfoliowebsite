@@ -1,6 +1,4 @@
 "use client"
-
-import { Button } from "@/components/ui/button"
 import {
   Linkedin,
   Mail,
@@ -75,40 +73,49 @@ export function Hero() {
             Research @ Hofstra University, special AI showcase presenter @ Robotics World Championship in Dallas.
           </p>
 
-          <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
+          <div className="flex items-center justify-center gap-4 mb-10 flex-wrap">
             {skillIcons.map((skill, index) => {
               const Icon = skill.icon
               return (
                 <div
                   key={skill.label}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/30 backdrop-blur-sm border border-border/50 hover:border-border hover:bg-background/50 transition-all hover:scale-105 cursor-default group"
+                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-all hover:scale-105 cursor-default group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <Icon className={`h-4 w-4 ${skill.color}`} />
-                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                  <span className="text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-current group-hover:after:w-full after:transition-all after:duration-300">
                     {skill.label}
                   </span>
+                  {index < skillIcons.length - 1 && <span className="text-border/50 ml-2">/</span>}
                 </div>
               )
             })}
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-            <Button size="lg" className="group" asChild>
-              <a href="#projects">
-                View Projects
-                <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href="#contact">Get in Touch</a>
-            </Button>
-            <Button size="lg" variant="secondary" asChild>
-              <a href="/resume.pdf" download>
-                <Download className="mr-2 h-4 w-4" />
-                Resume
-              </a>
-            </Button>
+          <div className="flex flex-wrap items-center justify-center gap-6 mb-12">
+            <a
+              href="#projects"
+              className="group inline-flex items-center gap-2 text-lg font-medium text-foreground hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
+            >
+              View Projects
+              <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <span className="text-border">|</span>
+            <a
+              href="#contact"
+              className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-foreground hover:after:w-full after:transition-all after:duration-300"
+            >
+              Get in Touch
+            </a>
+            <span className="text-border">|</span>
+            <a
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 text-lg font-medium text-muted-foreground hover:text-yellow-500 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-yellow-500 hover:after:w-full after:transition-all after:duration-300"
+            >
+              <Download className="h-4 w-4" />
+              Resume
+            </a>
           </div>
 
           <div className="flex items-center justify-center gap-6">

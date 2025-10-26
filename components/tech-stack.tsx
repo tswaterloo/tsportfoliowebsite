@@ -1,11 +1,11 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 const techStack = [
   {
     category: "Frontend",
+    color: "from-cyan-400 to-blue-500",
     technologies: [
       { name: "React", usage: "Component-based UI architecture for all pages and interactive elements" },
       { name: "Next.js 15", usage: "Server-side rendering, API routes, and optimized production builds" },
@@ -17,6 +17,7 @@ const techStack = [
   },
   {
     category: "Backend",
+    color: "from-green-400 to-emerald-500",
     technologies: [
       { name: "Node.js", usage: "JavaScript runtime powering all server-side logic and API endpoints" },
       { name: "Next.js API Routes", usage: "RESTful endpoints at /api/sql/* for CRUD operations" },
@@ -26,6 +27,7 @@ const techStack = [
   },
   {
     category: "Database",
+    color: "from-purple-400 to-pink-500",
     technologies: [
       {
         name: "PostgreSQL",
@@ -39,6 +41,7 @@ const techStack = [
   },
   {
     category: "CI/CD & DevOps",
+    color: "from-orange-400 to-red-500",
     technologies: [
       {
         name: "GitHub Actions",
@@ -51,6 +54,7 @@ const techStack = [
   },
   {
     category: "3D & Graphics",
+    color: "from-yellow-400 to-orange-500",
     technologies: [
       { name: "Three.js", usage: "WebGL rendering engine for 3D robot visualization in the showcase section" },
       { name: "React Three Fiber", usage: "React renderer for Three.js enabling declarative 3D scenes" },
@@ -64,33 +68,41 @@ export function TechStack() {
     <section className="py-8 relative overflow-hidden border-b border-border/30">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4 border-primary/50">
-              Full-Stack Development
-            </Badge>
+          <div className="mb-12">
+            <div className="inline-block mb-4">
+              <span className="text-sm font-mono text-primary/70 border-b border-primary/30 pb-1">
+                Full-Stack Development
+              </span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Technology Stack</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-balance">
+            <p className="text-muted-foreground max-w-2xl text-balance">
               This portfolio itself is a demonstration of modern web development. Hover over each technology to see
               exactly how it's used.
             </p>
           </div>
 
           <TooltipProvider delayDuration={200}>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {techStack.map((stack, index) => {
                 return (
-                  <div key={index} className="space-y-3">
-                    <h3 className="text-lg font-semibold text-foreground/90">{stack.category}</h3>
-                    <div className="flex flex-wrap gap-2 pl-4 border-l-2 border-primary/30">
-                      {stack.technologies.map((tech) => (
+                  <div key={index} className="space-y-4 group">
+                    <h3
+                      className={`text-xl font-semibold bg-gradient-to-r ${stack.color} bg-clip-text text-transparent`}
+                    >
+                      {stack.category}
+                    </h3>
+                    <div className="flex flex-wrap gap-x-4 gap-y-2 pl-4 border-l-2 border-border/30 group-hover:border-primary/50 transition-colors">
+                      {stack.technologies.map((tech, techIndex) => (
                         <Tooltip key={tech.name}>
                           <TooltipTrigger asChild>
-                            <Badge
-                              variant="secondary"
-                              className="text-sm bg-muted hover:bg-primary/20 transition-colors text-foreground cursor-help px-3 py-1"
+                            <span
+                              className="text-muted-foreground hover:text-foreground transition-all cursor-help relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
+                              style={{
+                                transitionDelay: `${techIndex * 30}ms`,
+                              }}
                             >
                               {tech.name}
-                            </Badge>
+                            </span>
                           </TooltipTrigger>
                           <TooltipContent className="max-w-xs">
                             <p className="text-sm">{tech.usage}</p>
@@ -104,8 +116,8 @@ export function TechStack() {
             </div>
           </TooltipProvider>
 
-          <div className="mt-12 text-center">
-            <div className="p-4 border-l-2 border-primary/50 bg-primary/5">
+          <div className="mt-12">
+            <div className="pl-4 border-l-2 border-primary/50">
               <p className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Live Implementation:</span> Every technology listed
                 above is actively used in this portfolio.
