@@ -74,7 +74,7 @@ export function RobotShowcase() {
             <div>
               <h3 className="text-xl font-semibold mb-2">VEX Robotics Competition Robot</h3>
               <p className="text-muted-foreground mb-4">
-                World Championship Finalist robot with advanced autonomous navigation and PID control systems.
+                The World Championship Robot that I designed.
               </p>
 
               {/* Technologies */}

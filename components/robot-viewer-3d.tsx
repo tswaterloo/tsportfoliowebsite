@@ -68,7 +68,7 @@ function Loader() {
 export function RobotViewer3D() {
   const [isAnimating, setIsAnimating] = useState(true)
   const [showInfo, setShowInfo] = useState(false)
-  const [modelPath, setModelPath] = useState<string>("/assets/3d/duck.glb")
+  const [modelPath, setModelPath] = useState<string | null>(null)
 
   const handleReset = () => {
     setIsAnimating(false)
@@ -107,7 +107,23 @@ export function RobotViewer3D() {
         <PerspectiveCamera makeDefault position={[5, 5, 5]} fov={50} />
 
         <Suspense fallback={<Loader />}>
-          <Robot isAnimating={isAnimating} modelPath={modelPath} />
+          {modelPath ? (
+            <Robot isAnimating={isAnimating} modelPath={modelPath} />
+          ) : (
+            <Html center>
+              <div className="text-center space-y-3 max-w-[250px]">
+                <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <Upload className="h-8 w-8 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">No 3D Model Loaded</p>
+                  <p className="text-xs text-muted-foreground">
+                    Upload a .glb or .gltf file using the upload button below
+                  </p>
+                </div>
+              </div>
+            </Html>
+          )}
           <Environment preset="studio" />
           <OrbitControls
             enablePan={true}
