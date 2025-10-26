@@ -24,7 +24,7 @@ const RobotViewer3D = dynamic(
 
 export function RobotShowcase() {
   return (
-    <section className="py-16 border-b border-border/30">
+    <section id="robot-showcase" className="py-16 border-b border-border/30">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
